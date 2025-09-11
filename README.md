@@ -12,7 +12,7 @@ This project is an asynchronous REST API for managing tickets, built with Rust u
 
 ## Documentation
 
-- **[📚 Learning Guide](docs/learning-notebook.md)** - Comprehensive guide covering Rust async patterns, architecture analysis, and learning exercises
+- **[📚 Learning Guide](docs/learning_notebook.md)** - Comprehensive guide covering Rust async patterns, architecture analysis, and learning exercises
 - **[🏗️ Architecture Overview](#architecture)** - High-level system design and module interactions
 
 ## Architecture
