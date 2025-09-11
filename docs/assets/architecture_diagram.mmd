@@ -1,0 +1,98 @@
+graph TB
+    %% External Dependencies Layer
+    subgraph "🌐 External Dependencies"
+        TOKIO["🔄 Tokio<br/>• Async Runtime<br/>• RwLock, spawn<br/>• TcpListener"]
+        AXUM["🌐 Axum<br/>• Web Framework<br/>• Router, extractors<br/>• State management"]
+        SERDE["📦 Serde<br/>• JSON Serialization<br/>• Derive macros<br/>• Error handling"]
+        UUID["🆔 UUID<br/>• Unique Identifiers<br/>• v4 generation<br/>• Display/Parse"]
+        TOWER["🏗️ Tower<br/>• HTTP Middleware<br/>• CORS Layer<br/>• Service traits"]
+        TRACING["📊 Tracing<br/>• Structured Logging<br/>• HTTP tracing<br/>• Debug info"]
+    end
+
+    %% Application Entry Point
+    subgraph "🚀 Application Bootstrap"
+        MAIN["main.rs<br/>🎯 Entry Point<br/>━━━━━━━━━━<br/>• #[tokio::main]<br/>• Router::new()<br/>• Route definitions<br/>• Middleware layers<br/>• Server binding<br/>• axum::serve()"]
+    end
+
+    %% Public API
+    subgraph "📚 Public Interface"
+        LIB["lib.rs<br/>📖 Library Root<br/>━━━━━━━━━━<br/>• pub use modules<br/>• API re-exports<br/>• Documentation"]
+    end
+
+    %% Request Processing Layer
+    subgraph "🎯 HTTP Handlers"
+        HANDLERS["handlers.rs<br/>🌐 Request Processing<br/>━━━━━━━━━━━━━━━━<br/>• create_ticket_handler()<br/>• get_ticket_handler()<br/>• update_ticket_handler()<br/>• list_tickets_handler()<br/>• health_check()<br/>━━━━━━━━━━━━━━━━<br/>• Axum extractors<br/>• Error conversion<br/>• HTTP status codes<br/>• JSON responses"]
+    end
+
+    %% Business Logic Layer
+    subgraph "💾 Storage Layer"
+        STORE["store.rs<br/>🗄️ Data Operations<br/>━━━━━━━━━━━━━━<br/>• TicketStore struct<br/>• Arc&lt;RwLock&lt;HashMap&gt;&gt;<br/>• add_ticket()<br/>• get_ticket()<br/>• patch_ticket()<br/>• list_tickets()<br/>━━━━━━━━━━━━━━<br/>• Async methods<br/>• Custom errors<br/>• Thread safety"]
+    end
+
+    %% Domain Model
+    subgraph "🏷️ Domain Types"
+        DATA["data.rs<br/>📋 Type Definitions<br/>━━━━━━━━━━━━━━<br/>• Ticket struct<br/>• TicketId(Uuid)<br/>• TicketStatus enum<br/>• TicketDraft<br/>• TicketPatch<br/>━━━━━━━━━━━━━━<br/>• Validation logic<br/>• Serde derives<br/>• Type safety<br/>• Business rules"]
+    end
+
+    %% Runtime Components
+    subgraph "⚙️ Runtime Environment"
+        direction LR
+        HTTP["🌍 HTTP Server<br/>• Port 3000<br/>• TCP Listener<br/>• Request routing"]
+        MEMORY["💭 Memory Store<br/>• HashMap storage<br/>• In-process data<br/>• Thread-safe access"]
+    end
+
+    %% External Interaction
+    CLIENT["👤 HTTP Client<br/>• REST API calls<br/>• JSON payloads<br/>• Status responses"]
+
+    %% Request Flow (solid arrows)
+    CLIENT ==>|"HTTP Request"| HTTP
+    HTTP ==>|"Route to handler"| HANDLERS
+    HANDLERS ==>|"Business logic"| STORE
+    STORE ==>|"Data access"| MEMORY
+    STORE ==>|"Type operations"| DATA
+
+    %% Response Flow (dashed arrows)
+    DATA -.->|"Typed data"| STORE
+    MEMORY -.->|"Raw data"| STORE
+    STORE -.->|"Results"| HANDLERS
+    HANDLERS -.->|"HTTP Response"| HTTP
+    HTTP -.->|"JSON Response"| CLIENT
+
+    %% Module Dependencies (thick arrows)
+    MAIN ==>|"Imports & Setup"| HANDLERS
+    MAIN ==>|"State injection"| STORE
+    HANDLERS ==>|"Uses types"| DATA
+    LIB ==>|"Re-exports"| HANDLERS
+    LIB ==>|"Re-exports"| STORE
+    LIB ==>|"Re-exports"| DATA
+
+    %% External Crate Usage (dotted lines)
+    MAIN -.->|"Uses"| AXUM
+    MAIN -.->|"Uses"| TOKIO
+    MAIN -.->|"Uses"| TOWER
+    MAIN -.->|"Uses"| TRACING
+    HANDLERS -.->|"Extractors"| AXUM
+    HANDLERS -.->|"JSON"| SERDE
+    STORE -.->|"RwLock"| TOKIO
+    STORE -.->|"ID generation"| UUID
+    DATA -.->|"Serialization"| SERDE
+    DATA -.->|"UUID types"| UUID
+
+    %% Styling
+    classDef external fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1
+    classDef bootstrap fill:#f3e5f5,stroke:#7b1fa2,stroke-width:3px,color:#4a148c
+    classDef interface fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px,color:#1b5e20
+    classDef handlers fill:#fff8e1,stroke:#f57f17,stroke-width:2px,color:#e65100
+    classDef storage fill:#fce4ec,stroke:#c2185b,stroke-width:2px,color:#880e4f
+    classDef domain fill:#f1f8e9,stroke:#558b2f,stroke-width:2px,color:#33691e
+    classDef runtime fill:#efebe9,stroke:#5d4037,stroke-width:2px,color:#3e2723
+    classDef client fill:#e0f2f1,stroke:#00695c,stroke-width:2px,color:#004d40
+
+    class TOKIO,AXUM,SERDE,UUID,TOWER,TRACING external
+    class MAIN bootstrap
+    class LIB interface
+    class HANDLERS handlers
+    class STORE storage
+    class DATA domain
+    class HTTP,MEMORY runtime
+    class CLIENT client
