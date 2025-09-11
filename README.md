@@ -20,6 +20,7 @@ This project is an asynchronous REST API for managing tickets, built with Rust u
 The application follows a layered architecture pattern:
 
 ![Module Architecture](docs/assets/architecture_diagram.png)
+<sub>*Diagram created with [Excalidraw](https://excalidraw.com/)*</sub>
 
 ## Modules Overview
 

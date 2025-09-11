@@ -43,6 +43,7 @@ This project implements a **Ticket Management System** as a RESTful API using mo
 ## 🏗️ Architecture and Project Structure
 
 ![Module Architecture](assets/architecture_diagram.png)
+<sub>*Diagram created with [Excalidraw](https://excalidraw.com/)*</sub>
 
 ```
 src/
