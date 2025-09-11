@@ -10,6 +10,17 @@ This project is an asynchronous REST API for managing tickets, built with Rust u
 - **List Tickets**: Retrieve all tickets in the system.
 - **Health Check**: Simple endpoint to verify the service is running.
 
+## Documentation
+
+- **[📚 Learning Guide](docs/learning-notebook.md)** - Comprehensive guide covering Rust async patterns, architecture analysis, and learning exercises
+- **[🏗️ Architecture Overview](#architecture)** - High-level system design and module interactions
+
+## Architecture
+
+The application follows a layered architecture pattern:
+
+![Module Architecture](docs/assets/architecture_diagram.png)
+
 ## Modules Overview
 
 - `data.rs`: Defines core data structures for tickets, including types for ticket ID, title, description, status, and request/response payloads. Handles validation logic for input fields.
@@ -59,4 +70,4 @@ curl -X POST http://localhost:3000/tickets \
 
 ## License
 
-MIT
+**[MIT](LICENSE)** 
